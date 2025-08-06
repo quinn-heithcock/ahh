@@ -156,6 +156,7 @@ if quote_file and vendor:
             quote_text = (
                 f"Quote Number: {result['quote_number']}\n"
                 f"Quote Amount: ${result['quote_amount']}"
+                f"Quote Date: {result['quote_date']}"
             )
         elif vendor == "Ceildeck":
             quote_text = (
