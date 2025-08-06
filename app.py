@@ -155,7 +155,7 @@ if quote_file and vendor:
         if vendor == "Accel":
             quote_text = (
                 f"Quote Number: {result['quote_number']}\n"
-                f"Quote Amount: ${result['quote_amount']}"
+                f"Quote Amount: ${result['quote_amount']}n"
                 f"Quote Date: {result['quote_date']}"
             )
         elif vendor == "Ceildeck":
