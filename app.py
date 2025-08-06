@@ -41,11 +41,12 @@ def extract_store_info(pdf_file):
     return "\n".join(filter(None, parts))
 
 # ------------------ QUOTE EXTRACTOR FOR ACCEL ------------------
-def extract_quote_info_accel(pdf_file):
+def extract_quote_info(pdf_path):
     quote_number = None
     quote_amount = None
+    quote_date = None 
 
-    with pdfplumber.open(pdf_file) as pdf:
+    with pdfplumber.open(pdf_path) as pdf:
         for page in pdf.pages:
             text = page.extract_text()
             if not text:
@@ -56,17 +57,23 @@ def extract_quote_info_accel(pdf_file):
                 quote_number = quote_number_match.group(1)
 
             quote_amount_match = re.search(
-                r'Grand Total \(Payable in U\.S\. Dollars\):\s*\$?([\d,]+\.\d{2})', text
+                r'Grand Total \(Payable in U\.S\. Dollars\):\s*\$?([\d,]+\.\d{2})',
+                text
             )
             if quote_amount_match:
                 quote_amount = quote_amount_match.group(1)
 
-            if quote_number and quote_amount:
+            quote_date_match = re.search(r'Date Ordered:\s*(\d{1,2}/\d{1,2}/\d{2})', text)
+            if quote_date_match:
+                quote_date = quote_date_match.group(1)
+
+            if quote_number and quote_amount and quote_date:
                 break
 
     return {
-        "quote_number": quote_number or "Not Found",
-        "quote_amount": quote_amount or "Not Found"
+        "quote_number": quote_number,
+        "quote_amount": quote_amount,
+        "quote_date": quote_date  
     }
 
 # ------------------ QUOTE EXTRACTOR FOR CEILDECK ------------------
