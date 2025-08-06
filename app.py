@@ -41,7 +41,7 @@ def extract_store_info(pdf_file):
     return "\n".join(filter(None, parts))
 
 # ------------------ QUOTE EXTRACTOR FOR ACCEL ------------------
-def extract_quote_info(pdf_path):
+def extract_quote_info_accel(pdf_path):
     quote_number = None
     quote_amount = None
     quote_date = None 
